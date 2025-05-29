@@ -823,6 +823,14 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+    <script>
+  fetch('https://technoworsenonlinearprogramming.yoshidayakuta.repl.co/api/hello')
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+    });
+</script>
+
 </body>
 
 </html>
