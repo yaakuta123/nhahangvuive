@@ -103,7 +103,7 @@
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Đặt Trước Chỗ</h5>
                         <h1 class="text-white mb-4">Đặt Bàn Trực Tuyến</h1>
-                        <form>
+                        <form id="booking-form">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
@@ -249,37 +249,24 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+<!-- Thêm script EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  emailjs.init('bnPVUo-ElUSGjmXmZ'); // Lấy từ dashboard EmailJS
+
+  document.getElementById('booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    emailjs.sendForm('service_a84qsbw', 'template_6ewf1rb', this)
+      .then(() => {
+        alert('✅ Đặt bàn thành công!');
+      }, (error) => {
+        alert('❌ Lỗi khi gửi: ' + JSON.stringify(error));
+      });
+  });
+</script>
+
 </body>
 
-<script>
-document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const data = {
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    date: document.getElementById('datetime').value, // sửa id
-    guests: document.getElementById('select1').value // sửa id
-  };
-
-  try {
-    const res = await fetch('https://backend-production-f5f1.up.railway.app/api/reservations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await res.json();
-    if (res.ok) {
-      alert('Đặt bàn thành công!');
-    } else {
-      alert('Lỗi: ' + result.message);
-    }
-  } catch (err) {
-    alert('Lỗi kết nối server');
-    console.error(err);
-  }
-});
-</script>
 
 </html>
