@@ -114,6 +114,12 @@
             }
         }
     });
+
+    // === Thêm đoạn datetimepicker ===
+    $(function () {
+        $('#date3').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+        });
+    });
     
 })(jQuery);
-
